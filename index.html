@@ -27,11 +27,24 @@
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
             color: azure;
         }
+
+        .hide {
+            visibility: hidden;
+        }
+
+        .seen {
+            visibility: visible;
+            text-decoration: underline;
+            text-transform: uppercase;
+            font-size: 20px; 
+   
+        }
+        
     </style>
 </head>
 <body class="page" style="padding:100px;">
     
-    <div class="container textCenter" style="background-color:black;border:darkgreen solid 4px;margin:auto;width:75%;max-height:1200px;">
+    <div class="container textCenter" style="background-color:black;border:darkgreen solid 4px;margin:auto;padding:20px 40px;width:75%;max-height:1200px;">
 
         <div class="row" style="width:span;height:200px;">
 
@@ -66,9 +79,15 @@
 
         </div>
         
-        <div class="row" style="height:200px;padding:20px 0;">
+        <div class="row" style="display:flex;height:200px;padding:20px 0;">
+            <div class="col-sm-12">
+            <p class="wordGuess" style="display:flex;font-size:20px;"></p>
+            </div>
+        </div>
 
-            <p class="col-sm-12 storyLine">The story appears here.</p>
+        <div class="row" style="height:200px;padding:20px 0;text-align:center;">
+            
+            <p class="col-sm-12 storyLine" style="margin:20px;">The story appears here.</p>
 
         </div>
         
