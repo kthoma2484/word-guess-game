@@ -13,24 +13,33 @@
     <script src="assets/javascript/game.js"></script>
     <style>
         .page {
-            background-image:url("");
+            background-image:url("assets/images/gallowsbackground.jpg");
             background-repeat: no-repeat;
             background-size: cover;
-            opacity: 0.2;
+    
+        }
+
+        .textCenter {
+            text-align: center;
+        }
+
+        p {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+            color: azure;
         }
     </style>
 </head>
-<body class="page">
-    <div class="container" style="border:darkgreen solid 4px;margin:60px;width:100%;height:900px;">
+<body class="page" style="padding:100px;">
+    
+    <div class="container textCenter" style="background-color:black;border:darkgreen solid 4px;margin:auto;width:75%;max-height:1200px;">
 
-        <div class="row">
+        <div class="row" style="width:span;height:200px;">
 
             <div class="col-sm-12">
 
                 <p style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:60px;text-decoration:underline;">
                 Word Guess Game
                 </p>
-                <br>
                 <p style="font-family:'Snell Roundhand', 'Brush Script MT', sans-serif;font-size:40px;">
                 The Tale of the Hangman
                 </p>
@@ -39,31 +48,34 @@
            
         </div>
 
-        <div class="row" style="width:100%;height:800px;">
+        <div class="row" style="width:span;height:300px;">
 
-            <div class="col-sm-6">
-               <img src="https://placeimg.com/300/300/any">
-               <br>
-               <p class="storyLine">
-                The story appears here.
-               </p>
-            </div>
+            
+               
+            <img class="col-sm-6" style="width:300px;font-size:18px;border:lightseagreen solid 4px;" src="https://placeimg.com/300/300/any" alt="Imagery for The Tale of the Hangman">
+
+           
               
-         <div class="col-sm-6">
-             <p>Guess what letter I'm thinking of!</p>
-             <br>
-             <p>
+            <div class="col-sm-6" style="font-size:24px;">
+            
+                <p>Wins:</p>
+                <p>Number of Guesses Remaining:</p>  
+                <p>Letters Already Guessed:</p>  
 
-             </p>
-                
-             
-         </div>>
-
-        
+            </div>
 
         </div>
-        <div class="row">
-            <p class="col-sm-12">Press any key to start!</p>
+        
+        <div class="row" style="height:200px;padding:20px 0;">
+
+            <p class="col-sm-12 storyLine">The story appears here.</p>
+
+        </div>
+        
+        <div class="row" style="height:50px">
+
+            <p class="col-sm-12" style="padding:5px;">Press any key to start!</p>
+
         </div>
 
     </div>
