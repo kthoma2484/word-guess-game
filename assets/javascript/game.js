@@ -2,10 +2,7 @@ $(document).ready(function() {
 
     let numWins = 1;
     let numLeft = 9;
-
-
-    // computer picks random word
-        
+   
     let theWords = [
         "peasant",
         "nobility",
@@ -13,65 +10,44 @@ $(document).ready(function() {
         "drunkard",
         "libertarian",
     ];
-    console.log(theWords)
+    
+    let theLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
+    // computer picks random word
     let newRndWord = function() {
         return theWords[Math.floor(Math.random() * theWords.length)];
             console.log(newRndWord());
     };
     
-    let theLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-
+    newRndWord();
+    
+    let rndWord = (newRndWord()); // new random word becomes a string
+        console.log(rndWord);
+    rndWordLetters = rndWord.split(""); // split the random word to create an array
+        console.log(rndWordLetters);
+    let rndWordLength = rndWord.length; // determine length of random word
+        console.log(rndWordLength);
+    
     
     
     $(document).keypress(function(event) {
-    // computer selects random word on keypress
-        newRndWord();
-        let rndWord = (newRndWord()); // new random word becomes a string
-        console.log(rndWord);
-        rndWordLetters = rndWord.split(""); // split the random word to create an array
-        console.log(rndWordLetters);
-        let rndWordLength = rndWord.length; // determine length of random word
-        console.log(rndWordLength);
-        
-        
-        $(document).keypress(function(event) {
-            playerLetter = String.fromCharCode(event.which);
+        playerLetter = String.fromCharCode(event.which);
             console.log("this is the player guess = " + playerLetter);
-            for (let i = 0; i < rndWordLetters.length; i++) {
-                if (rndWordLetters[i] == playerLetter) {
-                    console.log("it worked");
-                let wordLetter = $('<p>');
-                wordLetter.addClass('seen');
-                wordLetter.attr('data-letter', rndWordLetters[i]);
-                wordLetter.html(rndWordLetters[i]);
-                $('.wordGuess').append(wordLetter);
+        
+        for (let i = 0; i < rndWordLetters.length; i++) {
+            if (rndWordLetters[i] === playerLetter) {
+                    let wordLetter = $('<p>');
+                    wordLetter.addClass('seen');
+                    wordLetter.attr('data-letter', rndWordLetters[i]);
+                    wordLetter.html(rndWordLetters[i]);    
+                    $(".wordguess").append(wordLetter);
+                    console.log($(".wordguess").append(wordLetter));
                 }
-                    
             }
+            
+
         });
-        /*$('.wordGuess').keypress(function(event) {
-            for (let i=0; i < theLetters.length; i++) {
-            if (theLetters[i] == rndWordLength[index]) {
-                
-            */
-                    
-                    //
-                //  $('.wordGuess').append('<p>' + wordLetter + '</p>');
-                //  
-                //
-                // 
-                // $('.wordGuess').html(newRndWord());
-            //};
-        
-
-        
-        
-        
-    });
-
-
-
+     
 });
 
 /*
