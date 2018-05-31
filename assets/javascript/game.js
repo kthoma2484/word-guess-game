@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
     let numWins = 1;
-    let numLeft = 9;
    
     let theWords = [
         "peasant",
@@ -9,6 +8,16 @@ $(document).ready(function() {
         "illiterate",
         "drunkard",
         "libertarian",
+        "kindgom",
+        "marsh",
+        "carriage",
+        "beheaded",
+        "court",
+        "villian",
+        "plague",
+        "corsets",
+        "shipyard",
+        "alleyway",
     ];
     
     let theLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
@@ -22,67 +31,54 @@ $(document).ready(function() {
     newRndWord();
     
     let rndWord = (newRndWord()); // new random word becomes a string
-        console.log(rndWord);
     rndWordLetters = rndWord.split(""); // split the random word to create an array
-        console.log(rndWordLetters);
+    
+    // the number of guesses are deternmined by length of word
     let rndWordLength = rndWord.length; // determine length of random word
-        console.log(rndWordLength);
     
     
-    
+    for (let i = 0; i < rndWordLetters.length; i++) {
+        let wordLetter = $('<p>');
+        wordLetter.addClass('hide');
+        wordLetter.attr('data-letter', rndWordLetters[i]);
+        wordLetter.html("_");
+        $(".wordguess").append(wordLetter);        
+    }
+
+
     $(document).keypress(function(event) {
         playerLetter = String.fromCharCode(event.which);
-            console.log("this is the player guess = " + playerLetter);
+        console.log("this is the player guess = " + playerLetter);
         
-        for (let i = 0; i < rndWordLetters.length; i++) {
-            if (rndWordLetters[i] === playerLetter) {
-                    let wordLetter = $('<p>');
-                    wordLetter.addClass('seen');
-                    wordLetter.attr('data-letter', rndWordLetters[i]);
-                    wordLetter.html(rndWordLetters[i]);    
-                    $(".wordguess").append(wordLetter);
-                    console.log($(".wordguess").append(wordLetter));
-                }
+        for (let i = 0; i < theLetters.length; i++) {
+            
+            if (rndWordLetters[i] != playerLetter && playerLetter == theLetters[i]) {
+                        for (let i = 0; i < theLetters.length; i++); 
+                        $("#guessLeftValue").html(rndWordLength = rndWordLength + -1); // guesses left decreases by 1
+                        $("#guessMadeValue").append(playerLetter) 
+                   
+            } 
+        
+            else if (rndWordLetters[i] === playerLetter) {
+                $("#guessLeftValue").html(rndWordLength = rndWordLength + 1) 
+                $("[data-letter="+rndWordLetters[i]+"]").removeClass('hide');
+                console.log(playerLetter);
+                $("[data-letter="+rndWordLetters[i]+"]").addClass('seen');
+                console.log('this worked'); 
+                $("[data-letter="+rndWordLetters[i]+"]").html(rndWordLetters[i]);
+            }    
+        
+            if ( rndWordLength < 1) {
+                // if allowed guesses are exceeded without a win, then...
+                $("#guessMadeValue").empty(); // letters guessed resets
+                $("#guessLeftValue").empty();
+                $(".wordguess").empty();
+                newRndWord(); 
+
             }
+        } 
             
 
-        });
+    });
      
 });
-
-/*
-newGenWord();
-var NumberOfWords = 28
-
-var words = new BuildArray(NumberOfWords)
-
-
-function BuildArray(size){
-this.length = size
-for (var i = 0; i <= size; i++){
-this[i] = null}
-return this
-}
-
-function PickRandomWord(frm) {
-// Generate a random number between 1 and NumberOfWords
-var rnd = Math.ceil(Math.random() * NumberOfWords)
-
-// Display the word inside the text box
-frm.WordBox.value = words[rnd]
-}
-function BuildArray(size){
-    this.length = size
-    for (var i = 1; i <= size; i++){
-    this[i] = null}
-    return this
-    }
-    
-    function PickRandomWord(frm) {
-    // Generate a random number between 1 and NumberOfWords
-    var rnd = Math.ceil(Math.random() * NumberOfWords)
-    
-    // Display the word inside the text box
-    frm.WordBox.value = words[rnd]
-    }
-*/

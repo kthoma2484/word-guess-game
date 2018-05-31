@@ -19,7 +19,7 @@
     
         }
 
-        .textCenter {
+        .text-center {
             text-align: center;
         }
 
@@ -29,14 +29,15 @@
         }
 
         .hide {
-            visibility: hidden;
+            margin: 10px;
+            font-size: 50px; 
         }
 
         .seen {
-            margin: 10px;
+            margin: 15px;
             text-decoration: underline;
             text-transform: uppercase;
-            font-size: 20px; 
+            font-size: 50px; 
    
         }
         
@@ -44,7 +45,7 @@
 </head>
 <body class="page" style="padding:100px;">
     
-    <div class="container textCenter" style="background-color:black;border:darkgreen solid 4px;margin:auto;padding:20px 40px;width:75%;max-height:1200px;">
+    <div class="container text-center" style="background-color:black;border:darkgreen solid 4px;margin:auto;padding:20px 40px;width:75%;max-height:1200px;">
 
         <div class="row" style="width:span;height:200px;">
 
@@ -71,9 +72,9 @@
               
             <div class="col-sm-6" style="font-size:24px;">
             
-                <p>Wins:</p>
-                <p>Number of Guesses Remaining:</p>  
-                <p>Letters Already Guessed:</p>  
+                <p id="counterWin">Wins: <span id="winValue"></span></p>
+                <p id="guessLeft">Number of Guesses Remaining: <span id="guessLeftValue"></span></p>  
+                <p id="guessMade">Letters Already Guessed: <span id="guessMadeValue"></span></p>  
 
             </div>
 
@@ -82,14 +83,14 @@
         <div class="row" style="display:flex;height:200px;padding:20px 0;">
             
             <div class="col-sm-12">
-                <div class="wordguess" style="display:flex;justify-content:center;font-size:20px;color:white;"></div>
+                <div class="wordguess" style="display:flex;margin:20px 0;justify-content:center;color:white;"></div>
             </div>
 
         </div>
 
-        <div class="row" style="height:200px;padding:20px 0;text-align:center;">
+        <div class="row" style="height:200px;padding:20px 0;">
             
-            <p class="col-sm-12 storyLine" style="margin:20px;">The story appears here.</p>
+            <p class="col-sm-12 storyLine" style="justify-content:center;margin:20px 0;">The story appears here.</p>
 
         </div>
         
