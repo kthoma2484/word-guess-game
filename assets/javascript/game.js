@@ -28,11 +28,12 @@ $(document).ready(function() {
             console.log(newRndWord());
     };
     
-    newRndWord();
     
     let rndWord = (newRndWord()); // new random word becomes a string
     rndWordLetters = rndWord.split(""); // split the random word to create an array
-    
+    console.log(rndWord);
+    console.log(rndWordLetters);
+
     // the number of guesses are deternmined by length of word
     let rndWordLength = rndWord.length; // determine length of random word
     
