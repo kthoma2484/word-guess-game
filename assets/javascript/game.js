@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    let numWins = 1;
+    let numWins = 0;
    
     let theWords = [
         "peasant",
@@ -21,38 +21,50 @@ $(document).ready(function() {
     ];
     
     let theLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-
-    // computer picks random word
+    
     let newRndWord = function() {
         return theWords[Math.floor(Math.random() * theWords.length)];
             console.log(newRndWord());
     };
     
-    
-    let rndWord = (newRndWord()); // new random word becomes a string
-    rndWordLetters = rndWord.split(""); // split the random word to create an array
-    console.log(rndWord);
-    console.log(rndWordLetters);
+    let rndWord = ""; 
+    let rndWordLetters = []; 
+    let rndWordLength = 0;
 
-    // the number of guesses are deternmined by length of word
-    let rndWordLength = rndWord.length; // determine length of random word
+    // computer picks random word
     
+    let gameStart = function() {
+        rndWord = (newRndWord()); // new random word becomes a string
+        console.log(rndWord);
+        rndWordLetters = rndWord.split(""); // split the random word to create an array
+        console.log(rndWordLetters);
+        // the number of guesses are deternmined by length of word
+        rndWordLength = rndWord.length; // determine length of random word
+        
+        // resets the word guess element
+        $(".wordguess").empty();
+
+        // creates underscores with same number as word letters
+        for (let i = 0; i < rndWordLetters.length; i++) {
+            let wordLetter = $('<p>');
+            wordLetter.addClass('hide');
+            wordLetter.attr('data-letter', rndWordLetters[i]);
+            wordLetter.html("_");
+            $(".wordguess").append(wordLetter);        
+        }
     
-    for (let i = 0; i < rndWordLetters.length; i++) {
-        let wordLetter = $('<p>');
-        wordLetter.addClass('hide');
-        wordLetter.attr('data-letter', rndWordLetters[i]);
-        wordLetter.html("_");
-        $(".wordguess").append(wordLetter);        
     }
-
+    
+    // calls game start function on startup
+    gameStart();
+       
 
     $(document).keypress(function(event) {
         playerLetter = String.fromCharCode(event.which);
         console.log("this is the player guess = " + playerLetter);
         
         for (let i = 0; i < theLetters.length; i++) {
-            
+         
             if (rndWordLetters[i] != playerLetter && playerLetter == theLetters[i]) {
                         for (let i = 0; i < theLetters.length; i++); 
                         $("#guessLeftValue").html(rndWordLength = rndWordLength + -1); // guesses left decreases by 1
@@ -66,28 +78,16 @@ $(document).ready(function() {
                 console.log(playerLetter);
                 $("[data-letter="+rndWordLetters[i]+"]").addClass('seen');
                 $("[data-letter="+rndWordLetters[i]+"]").html(rndWordLetters[i]);
-                    
-            }
-
-            /*if ($(".wordguess").has(".hide").length && rndWordLength < 1) {
-                console.log('you loss');
-                $("#guessMadeValue").empty(); // letters guessed resets
-                $("#guessLeftValue").empty();
-                $(".wordguess").empty();
-            }
-            if ($(".wordguess").has(".seen").length == rndWordLength) {
-                console.log('you win');
-                $("#winValue").html(numWins = numWins + 1);
-            }
-            */
-           
+                
             
+            }
+          
+
             if ( rndWordLength < 1) {
                 // if allowed guesses are exceeded without a win, then...
                 $("#guessMadeValue").empty(); // letters guessed resets
-                $("#guessLeftValue").empty();
-                $(".wordguess").html("You lose! The word was " + "'" + rndWord + "'");
-                
+                $("#guessLeftValue").empty(); // guesses left resects
+                gameStart(); // call game to restart
             }
         } 
             
