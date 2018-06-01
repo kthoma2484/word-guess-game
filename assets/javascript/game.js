@@ -65,31 +65,30 @@ $(document).ready(function() {
                 $("[data-letter="+rndWordLetters[i]+"]").removeClass('hide');
                 console.log(playerLetter);
                 $("[data-letter="+rndWordLetters[i]+"]").addClass('seen');
-                console.log('this worked'); 
                 $("[data-letter="+rndWordLetters[i]+"]").html(rndWordLetters[i]);
-                    if ($(".wordguess").has(".hide").length && rndWordLength < 1) {
-                        console.log('you loss');
-                        $("#guessMadeValue").empty(); // letters guessed resets
-                        $("#guessLeftValue").empty();
-                        $(".wordguess").empty();
-                    }
-                    if ($(".wordguess").has(".seen").length && rndWordLength > 1) {
-                        console.log('you win');
-                        $("#winValue").html(numWins = numWins + 1);
-                    }
+                    
             }
 
-
-                
+            /*if ($(".wordguess").has(".hide").length && rndWordLength < 1) {
+                console.log('you loss');
+                $("#guessMadeValue").empty(); // letters guessed resets
+                $("#guessLeftValue").empty();
+                $(".wordguess").empty();
+            }
+            if ($(".wordguess").has(".seen").length == rndWordLength) {
+                console.log('you win');
+                $("#winValue").html(numWins = numWins + 1);
+            }
+            */
            
-            /*
+            
             if ( rndWordLength < 1) {
                 // if allowed guesses are exceeded without a win, then...
                 $("#guessMadeValue").empty(); // letters guessed resets
                 $("#guessLeftValue").empty();
-                $(".wordguess").empty();
+                $(".wordguess").html("You lose! The word was " + "'" + rndWord + "'");
                 
-            }*/
+            }
         } 
             
 
