@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
     let numWins = 0;
-   
+    let numLeft = 10;
+    let letterCount = 0;
     let theWords = [
         "peasant",
         "nobility",
@@ -34,6 +35,16 @@ $(document).ready(function() {
     // computer picks random word
     
     let gameStart = function() {
+        // resets the word guess element
+        letterCount = 0;
+        numLeft = 10;
+        console.log(numLeft);
+        $("#guessMadeValue").empty(); // letters guessed resets
+        $("#guessLeftValue").html(numLeft); // guesses left resects 
+        $(".wordguess").empty();// clear word guess element
+        
+       
+        // select a new random word
         rndWord = (newRndWord()); // new random word becomes a string
         console.log(rndWord);
         rndWordLetters = rndWord.split(""); // split the random word to create an array
@@ -41,9 +52,6 @@ $(document).ready(function() {
         // the number of guesses are deternmined by length of word
         rndWordLength = rndWord.length; // determine length of random word
         
-        // resets the word guess element
-        $(".wordguess").empty();
-
         // creates underscores with same number as word letters
         for (let i = 0; i < rndWordLetters.length; i++) {
             let wordLetter = $('<p>');
@@ -51,6 +59,7 @@ $(document).ready(function() {
             wordLetter.attr('data-letter', rndWordLetters[i]);
             wordLetter.html("_");
             $(".wordguess").append(wordLetter);        
+        
         }
     
     }
@@ -63,35 +72,36 @@ $(document).ready(function() {
         playerLetter = String.fromCharCode(event.which);
         console.log("this is the player guess = " + playerLetter);
         
-        for (let i = 0; i < theLetters.length; i++) {
+      //  for (let i = 0; i < theLetters.length; i++) {
          
-            if (rndWordLetters[i] != playerLetter && playerLetter == theLetters[i]) {
-                        for (let i = 0; i < theLetters.length; i++); 
-                        $("#guessLeftValue").html(rndWordLength = rndWordLength + -1); // guesses left decreases by 1
-                        $("#guessMadeValue").append(playerLetter) 
-                   
+            if (rndWordLetters.indexOf(playerLetter) == -1) {
+                console.log(playerLetter);
+                $("#guessLeftValue").html(numLeft = numLeft + -1); // guesses left decreases by 1
+                console.log('not this')
+                $("#guessMadeValue").append(playerLetter); 
+                if ( numLeft <= 0) {
+                    // if allowed guesses are exceeded without a win, then...
+                    gameStart(); // call game to restart
+                 }
+                        
             } 
         
-            else if (rndWordLetters[i] === playerLetter) {
-                $("#guessLeftValue").html(rndWordLength = rndWordLength + 1); 
-                $("[data-letter="+rndWordLetters[i]+"]").removeClass('hide');
+            else {
+                $("[data-letter="+ playerLetter +"]").removeClass('hide');
                 console.log(playerLetter);
-                $("[data-letter="+rndWordLetters[i]+"]").addClass('seen');
-                $("[data-letter="+rndWordLetters[i]+"]").html(rndWordLetters[i]);
-                
-            
+                $("[data-letter="+ playerLetter +"]").addClass('seen');
+                console.log('not shown')
+                $("[data-letter="+ playerLetter +"]").html(playerLetter);
+                $("[data-letter="+ playerLetter +"]").length; 
+                console.log($("[data-letter="+ playerLetter +"]").length);
+                letterCount += $("[data-letter="+ playerLetter +"]").length; 
+                console.log(letterCount);
+                if (letterCount === rndWordLength) {
+                    $("#winValue").html(numWins = numWins + 1);
+                    gameStart();
+                }
             }
-          
-
-            if ( rndWordLength < 1) {
-                // if allowed guesses are exceeded without a win, then...
-                $("#guessMadeValue").empty(); // letters guessed resets
-                $("#guessLeftValue").empty(); // guesses left resects
-                gameStart(); // call game to restart
-            }
-        } 
-            
-
+     
     });
      
 });
