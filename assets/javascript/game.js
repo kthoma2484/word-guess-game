@@ -135,7 +135,7 @@ $(document).ready(function() {
                 
             } 
             // if player letter guess is among randome word letter array, then...
-            else {
+            else if (rndWordLetters.indexOf(playerLetter) != -1) {
                 $("[data-letter="+ playerLetter +"]").removeClass('hide'); // the player letter replaces the underscore character by removing the 'hide' class
                 console.log(playerLetter);
                 $("[data-letter="+ playerLetter +"]").addClass('seen'); // and adding the seen class
