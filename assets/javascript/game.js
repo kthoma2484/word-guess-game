@@ -90,29 +90,27 @@ $(document).ready(function() {
         // creates player guess string
         playerLetter = String.fromCharCode(event.which);
         console.log("this is the player guess = " + playerLetter);
-
-            // check for any character typed is a letter
-            if (theLetters.indexOf(playerLetter) == -1) {
-                return;
-            }
             
             // if allowed guesses are exceeded without a win, then playler losses and game restarts
             if (numLeft <= 0) {
                 gameStart(); // call game to restart
             }
             
-            // if allowed guesses are not exceeded before word guessed, then playler wins and game restarts
+            // if allowed guesses are not exceeded before word guessed, then player wins and game restarts
             if (letterCount == rndWordLength) {
+                gameStart(); // call game to restart
                 $("#winValue").html(numWins = numWins + 1); // add win point per wine
                 $(".storyHere").html(storyLine[numWins]); // change story line for each additional win
-                gameStart(); // call game to restart
+                
             }  
+
+            // check for any character typed is a letter
+            if (theLetters.indexOf(playerLetter) == -1) {
+                return;
+            }
 
             // check for player letter guess among random word letter array, if letter not in array...
             if (rndWordLetters.indexOf(playerLetter) == -1) {
-                if (playerGuesses.indexOf(playerLetter) != -1) {
-                    return;
-                }
                 console.log(playerLetter);
                 $("#guessLeftValue").html(numLeft = numLeft + -1); // then guesses left decreases by 1
                 console.log('not this')
