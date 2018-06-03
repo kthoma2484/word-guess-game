@@ -58,6 +58,7 @@ $(document).ready(function() {
         // resets the word guess element
         letterCount = 0;
         numLeft = 10;
+        playerGuesses = [];
         console.log(numLeft);
         $("#guessMadeValue").empty(); // letters guessed resets
         $("#guessLeftValue").html(numLeft); // guesses left resects 
@@ -135,11 +136,10 @@ $(document).ready(function() {
                 
             } 
             // if player letter guess is among randome word letter array, then...
-            else if (rndWordLetters.indexOf(playerLetter) != -1) {
+            else {
                 $("[data-letter="+ playerLetter +"]").removeClass('hide'); // the player letter replaces the underscore character by removing the 'hide' class
                 console.log(playerLetter);
                 $("[data-letter="+ playerLetter +"]").addClass('seen'); // and adding the seen class
-                console.log('not shown')
                 $("[data-letter="+ playerLetter +"]").html(playerLetter); // the seen class is added to the player letter
                 // the next code determines the player letters guessed length as created by counting the 
                 // children in the parent element. This is the letterCount number
