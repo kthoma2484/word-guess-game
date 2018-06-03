@@ -45,6 +45,7 @@ $(document).ready(function() {
     let rndWordLetters = []; 
     let rndWordLength = 0;
     let playerGuesses = [];
+    let audioStarted = false;
 
     // This is the function to select a random word among theWords array
     let newRndWord = function() {
@@ -53,7 +54,6 @@ $(document).ready(function() {
     };
     
     // computer picks random word
-    
     let gameStart = function() {
         // resets the word guess element
         letterCount = 0;
@@ -84,20 +84,35 @@ $(document).ready(function() {
     
     // calls game start function on startup
     gameStart();
-       
+    
+    let mySound = document.getElementById('page-audio')
+    function pauseSound(){
+        mySound.pause();
+    }
 
     $(document).keypress(function(event) {
+        
+        // start sound
+        if (!audioStarted) {
+        document.getElementById('page-audio').play();
+        audioStarted = true;
+        }
+
         // creates player guess string
         playerLetter = String.fromCharCode(event.which);
         console.log("this is the player guess = " + playerLetter);
             
             // if allowed guesses are exceeded without a win, then playler losses and game restarts
             if (numLeft <= 0) {
+                mySound.pause();
+                document.getElementById('loss-audio').play();
                 gameStart(); // call game to restart
             }
             
             // if allowed guesses are not exceeded before word guessed, then player wins and game restarts
             if (letterCount == rndWordLength) {
+                mySound.pause();
+                document.getElementById('win-audio').play();
                 gameStart(); // call game to restart
                 $("#winValue").html(numWins = numWins + 1); // add win point per wine
                 $(".storyHere").html(storyLine[numWins]); // change story line for each additional win
@@ -139,3 +154,4 @@ $(document).ready(function() {
     });
      
 });
+
