@@ -39,7 +39,10 @@
             text-transform: uppercase;
         }
        
-       
+        .img-hide {
+            visibility: hidden;
+            display: none;
+        }
     
     </style>
 </head>
@@ -49,9 +52,9 @@
     <audio autoplay id="loss-audio" src="assets/audio/bringout.wav" type="audio/wav"></audio>
     <audio autoplay id="win-audio" src="assets/audio/notdead.wav" type="audio/wav"></audio>
 
-    <div class="container text-center" style="background-color:black;border:darkgreen solid 4px;margin:auto;padding:20px 40px;width:75%;max-height:1200px;">
+    <div class="container text-center" style="background-color:black;border:darkgreen solid 4px;margin:auto;padding:20px 40px;width:100%;max-height:1200px;">
 
-        <div class="row" style="width:span;max-height:200px;">
+        <div class="row" style="max-height:200px;">
 
             <div class="col-sm-12">
 
@@ -69,12 +72,11 @@
         <div class="row" style="width:span;height:300px;">
 
             
-               
-            <img class="col-sm-6" src="https://steamcdn-a.akamaihd.net/steam/apps/717520/header.jpg?t=1510553746" alt="Imagery for The Tale of the Hangman">
-
-           
-              
-            <div class="col-sm-6" style="font-size:24px;">
+            <div class="col-sm-6 game-img">
+                <img class="my-image" style="padding: 40px 0;" alt="Imagery for The Tale of the Hangman">
+            </div>   
+   
+            <div class="col-sm-6" style="font-size:24px;padding:40px 0;">
             
                 <p id="counterWin">Wins: <span id="winValue">0</span></p>
                 <p id="guessLeft">Number of Guesses Remaining: <span id="guessLeftValue"></span></p>  

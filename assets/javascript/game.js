@@ -50,7 +50,6 @@ $(document).ready(function() {
     // This is the function to select a random word among theWords array
     let newRndWord = function() {
         return theWords[Math.floor(Math.random() * theWords.length)];
-        console.log(newRndWord());
     };
     
     // computer picks random word
@@ -59,20 +58,21 @@ $(document).ready(function() {
         letterCount = 0;
         numLeft = 10;
         playerGuesses = [];
-        console.log(numLeft);
         $("#guessMadeValue").empty(); // letters guessed resets
         $("#guessLeftValue").html(numLeft); // guesses left resects 
         $(".wordguess").empty();// clear word guess element
-        
-       
+        $('.my-image').attr('src','https://steamcdn-a.akamaihd.net/steam/apps/717520/header.jpg?t=1510553746')
+
         // select a new random word
         rndWord = (newRndWord()); // new random word becomes a string
-        console.log(rndWord);
+        console.log('Random word = ' + rndWord);
         rndWordLetters = rndWord.split(""); // split the random word to create an array
-        console.log(rndWordLetters);
+        console.log('Array generarted from the random word = ' + rndWordLetters);
+        
         // the number of guesses are deternmined by length of word
         rndWordLength = rndWord.length; // determine length of random word
-        
+        console.log('Random word length = ' + rndWordLength)
+
         // creates underscores with same number as word letters
         for (let i = 0; i < rndWordLetters.length; i++) {
             let wordLetter = $('<p>');
@@ -83,15 +83,18 @@ $(document).ready(function() {
         }
     }
     
-    // calls game start function on startup
+    // calls game start function on startup with the hangman image
     gameStart();
-    
+    $('.my-image').attr('src','https://steamcdn-a.akamaihd.net/steam/apps/717520/header.jpg?t=1510553746');
+
+    // function to pause intro audio (bells)
     let mySound = document.getElementById('page-audio')
     function pauseSound(){
         mySound.pause();
     }
 
     $(document).keypress(function(event) {
+        console.log('Letter count after keypress= ' + letterCount);  
         
         // start sound
         if (!audioStarted) {
@@ -101,56 +104,69 @@ $(document).ready(function() {
 
         // creates player guess string
         playerLetter = String.fromCharCode(event.which);
-        console.log("this is the player guess = " + playerLetter);
+        console.log('Player letter guess = ' + playerLetter);
             
             // if allowed guesses are exceeded without a win, then playler losses and game restarts
             if (numLeft <= 0) {
-                mySound.pause();
-                document.getElementById('loss-audio').play();
                 gameStart(); // call game to restart
             }
             
             // if allowed guesses are not exceeded before word guessed, then player wins and game restarts
             if (letterCount == rndWordLength) {
-                mySound.pause();
-                document.getElementById('win-audio').play();
-                gameStart(); // call game to restart
                 $("#winValue").html(numWins = numWins + 1); // add win point per wine
                 $(".storyHere").html(storyLine[numWins]); // change story line for each additional win
-                
+                gameStart(); // call game to restart
             }  
 
-            // check for any character typed is a letter
+            // check that character typed is a letter 
             if (theLetters.indexOf(playerLetter) == -1) {
+                console.log('not a letter');
                 return;
             }
 
-            // check for player letter guess among random word letter array, if letter not in array...
-            if (rndWordLetters.indexOf(playerLetter) == -1) {
-                console.log(playerLetter);
-                $("#guessLeftValue").html(numLeft = numLeft + -1); // then guesses left decreases by 1
-                console.log('not this')
-                $("#guessMadeValue").append(playerLetter); // and player letter guess added to guessed letter element
-                playerGuesses.push(playerLetter);
-                console.log(playerGuesses);
-                
-            } 
-            // if player letter guess is among randome word letter array, then...
-            else {
-                $("[data-letter="+ playerLetter +"]").removeClass('hide'); // the player letter replaces the underscore character by removing the 'hide' class
-                console.log(playerLetter);
-                $("[data-letter="+ playerLetter +"]").addClass('seen'); // and adding the seen class
-                $("[data-letter="+ playerLetter +"]").html(playerLetter); // the seen class is added to the player letter
-                // the next code determines the player letters guessed length as created by counting the 
-                // children in the parent element. This is the letterCount number
-                $("[data-letter="+ playerLetter +"]").length; 
-                console.log($("[data-letter="+ playerLetter +"]").length); 
-                letterCount += $("[data-letter="+ playerLetter +"]").length; 
-                console.log(letterCount);
-                
+            // checking if player guess is already in the player guess array, if so - do nothing
+            if (playerGuesses.indexOf(playerLetter) != -1) {
+                return;
             }
             
-             
+            // check for player letter guess among random word letter array, if letter not in array...
+            if (rndWordLetters.indexOf(playerLetter) == -1) {
+                $("#guessLeftValue").html(numLeft = numLeft + -1); // then guesses left decreases by 1
+                console.log('this is guesses left =' + numLeft)
+                $("#guessMadeValue").append(playerLetter); // and player letter guess added to guessed letter element
+                playerGuesses.push(playerLetter);
+                console.log('Player guesses array = ' + playerGuesses);
+            } 
+
+            // else player letter guess is among random word letter array, then...
+            else {
+                $("[data-letter="+ playerLetter +"]").removeClass('hide'); // the player letter replaces the underscore character by removing the 'hide' class
+                $("[data-letter="+ playerLetter +"]").addClass('seen'); // and adding the seen class
+                $("[data-letter="+ playerLetter +"]").html(playerLetter); // the seen class is added to the player letter 
+                playerGuesses.push(playerLetter);
+                console.log('Player guesses array = ' + playerGuesses)
+            }
+
+            // checking if guesses left is equal to or less than zero
+            if (numLeft <= 0) {
+                $('.my-image').attr('src','https://media.giphy.com/media/aInB8x0E2DVMk/200.gif')
+                mySound.pause(); // pauses intro audio
+                document.getElementById('loss-audio').play(); // plays audio for game loss
+            }
+            
+            //  this generates the letterCount length
+            if (rndWordLetters.indexOf(playerLetter) != -1){
+                letterCount += $("[data-letter="+ playerLetter +"]").length; // each correct player letter adds to the letter count
+                console.log('Letter count after add = ' + letterCount);  
+            }
+
+            // checking if letter count equals random word letter count
+            if (letterCount == rndWordLength) {
+                mySound.pause(); // pauses intro audio
+                document.getElementById('win-audio').play(); // plays audio for game win
+                $('.my-image').attr('src','https://media1.tenor.com/images/dfb3f4b4a2dd3b95578e24137e0a583c/tenor.gif?itemid=11279438')
+            }
+
     });
      
 });
